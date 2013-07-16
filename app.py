@@ -4,7 +4,7 @@ import os
 
 
 app = Flask(__name__)
-yh = Yhat("greg", "fCVZiLJhS95cnxOrsp5e2VSkk0GfypZqeRCntTD1nHA")
+yh = Yhat(os.environ.get("YHAT_USERNAME"), os.environ.get("YHAT_APIKEY"))
 
 
 @app.route("/", methods=["GET", "POST"])
