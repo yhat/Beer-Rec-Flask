@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+	<title>Beer Recommender</title>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}"></link>
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+</head>
+
+
+<body>
+	<div class="container">
+	<hr>
+	<a id="yhat_logo" href="http://promo.yhathq.com/yhat-a-launch/" title="yhathq.com"><img src="https://s3.amazonaws.com/yhat/glamp/yhat_clear_bkg.png"></a>
+	<hr>
+		<h1>Beer Recommender</h1>
+		<form id="beer" class="navbar-form pull-left">
+			<label class="control-label">Beer You Like: <select id="beer" name="beer">
+					<option value="60 Minute IPA">60 Minute IPA</option>
+					<option value="Blue Moon Belgian White">Blue Moon Belgian White</option>
+					<option value="Bud Light">Bud Light</option>
+					<option value="Coors Light">Coors Light</option>
+					<option value="Dale's Pale Ale">Dale's Pale Ale</option>
+					<option value="Fat Tire Amber Ale">Fat Tire Amber Ale</option>
+					<option value="Guinness Draught">Guinness Draught</option>
+					<option value="Michelob Ultra">Michelob Ultra</option>
+					<option value="Natural Light">Natural Light</option>
+					<option value="Sierra Nevada Pale Ale">Sierra Nevada Pale Ale</option>
+					
+			</select>
+		</label>
+			<label class="control-label">Weights</label>
+			<label>Overall: <input type="number" name="overall" value=1></label>
+			<label>Aroma: <input type="number" name="aroma" value=1></label>
+			<label>Palate: <input type="number" name="palate" value=1></label>
+			<label>Taste: <input type="number" name="taste" value=1></label>
+
+			<input type='submit' value="Go!" class="btn btn-primary">
+		</form>
+
+	</div>
+	<br>
+	<div class="container">
+			<div id="results"></div>
+	</div>
+
+	<script type="text/javascript">
+	$(function() {
+
+		$.fn.serializeObject = function()
+		{
+		    var o = {};
+		    var a = this.serializeArray();
+		    $.each(a, function() {
+		        if (o[this.name] !== undefined) {
+		            if (!o[this.name].push) {
+		                o[this.name] = [o[this.name]];
+		            }
+		            o[this.name].push(this.value || '');
+		        } else {
+		            o[this.name] = this.value || '';
+		        }
+		    });
+		    return o;
+		};
+	})
+
+	$("#beer").submit(function(e) {
+		e.preventDefault()
+		var payload = $("#beer").serializeObject()
+        
+		$.post("/", payload, function(data) {
+			if (data.results) {
+				$("#results").children().remove()
+				// $("#results").append("<pre>" + JSON.stringify(data.results, null, 2) + "</pre>");
+				rows = []
+
+				console.log(data.results)
+				for (var i = 0; i < data.results.length; i++) {
+					row = data.results[i]
+					row = "<tr><td>" + row[1] + "</td><td>" + row[2] + "</td></tr>"
+					rows.push(row)
+				}
+				table = "<table class='table table-striped'><tr><th>Beer</th><th>Distance</th></tr>" + rows.join("") + "</table>"
+				$("#results").append(table);
+		}
+		})
+		return false;
+	})
+	</script>
+
+</body>
+
+
+</html>
