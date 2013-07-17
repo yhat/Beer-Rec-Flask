@@ -10,6 +10,6 @@ A basic demo application for making beer recommendations using Yhat and scikit-l
     heroku create
     git push heroku master
 
-###Resources
-    - Data Download: http://bit.ly/1bkCTHz
-    - IPython Notebook: http://bit.ly/14Wl64k
+###Resources for Recommender
+- [Dataset](https://s3.amazonaws.com/demo-datasets/beer_reviews.tar.gz)
+- [IPython Notebook](http://nbviewer.ipython.org/20a18d52c539b87de2af)
