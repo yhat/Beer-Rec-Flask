@@ -4,6 +4,7 @@ Beer-Rec-Flask
 A basic demo application for making beer recommendations using Yhat and scikit-learn.
 
 ###To Run
+    pip install -r requirements.txt
     python app.py
 
 ###Deploying on Heroku
