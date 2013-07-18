@@ -19,7 +19,7 @@ def home():
             "beer": data['beer'],
             "weights": weights
         }
-        results = yh.predict("PydataBeerRec", 6, data)
+        results = yh.predict("PydataBeerRec", 8, data)
 
         return jsonify({"results": results})
     
