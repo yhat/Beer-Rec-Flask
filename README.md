@@ -5,6 +5,8 @@ A basic demo application for making beer recommendations using Yhat and scikit-l
 
 ###To Run
     pip install -r requirements.txt
+    export YHAT_USERNAME="YOUR USERNAME"
+    export YHAT_APIKEY="YOUR APIKEY" 
     python app.py
 
 ###Deploying on Heroku
